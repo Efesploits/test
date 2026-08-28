@@ -1,0 +1,154 @@
+<!-- ============================================================
+     PRELOADER + SITE HEADER / NAV
+     Owner: core agent. Styles: assets/css/preloader.css
+     Behaviour: assets/js/preloader.js
+     ============================================================ -->
+
+<a class="sr-only sr-only-focusable" href="#evrim">İçeriğe geç</a>
+
+<!-- ---------------------- PRELOADER ---------------------- -->
+<div id="preloader" class="pl" role="progressbar" aria-label="Berkay Cabbar yükleniyor"
+     aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+
+  <div class="pl__curtain pl__curtain--top" aria-hidden="true"></div>
+  <div class="pl__curtain pl__curtain--bottom" aria-hidden="true"></div>
+
+  <div class="pl__inner">
+
+    <p class="pl__brand">BERKAY <span class="pl__brand-em">CABBAR</span></p>
+
+    <div class="pl__stage" aria-hidden="true">
+      <div class="pl__aura"></div>
+      <svg class="pl__svg" viewBox="0 0 200 268" preserveAspectRatio="xMidYMid meet" focusable="false">
+        <defs>
+          <linearGradient id="pl-stroke-grad" x1="0" y1="1" x2="1" y2="0">
+            <stop class="pl-stop-amber" offset="0%"></stop>
+            <stop class="pl-stop-leaf" offset="42%"></stop>
+            <stop class="pl-stop-cyan" offset="74%"></stop>
+            <stop class="pl-stop-violet" offset="100%"></stop>
+          </linearGradient>
+          <linearGradient id="pl-fill-grad" x1="0" y1="1" x2="0" y2="0">
+            <stop class="pl-stop-cyan" offset="0%" stop-opacity="0.30"></stop>
+            <stop class="pl-stop-violet" offset="100%" stop-opacity="0.10"></stop>
+          </linearGradient>
+          <radialGradient id="pl-ground-grad" cx="50%" cy="50%" r="50%">
+            <stop class="pl-stop-cyan" offset="0%" stop-opacity="0.45"></stop>
+            <stop class="pl-stop-cyan" offset="100%" stop-opacity="0"></stop>
+          </radialGradient>
+          <filter id="pl-blur" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="5"></feGaussianBlur>
+          </filter>
+        </defs>
+
+        <ellipse class="pl__ground" cx="100" cy="258" rx="62" ry="9" fill="url(#pl-ground-grad)"></ellipse>
+
+        <path id="pl-glow" class="pl__glow" d="" fill="none" stroke="url(#pl-stroke-grad)"
+              stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#pl-blur)"></path>
+
+        <path id="pl-body" class="pl__body" d="" fill="url(#pl-fill-grad)" stroke="none"></path>
+
+        <path id="pl-figure" class="pl__figure" d="" fill="none" stroke="url(#pl-stroke-grad)"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+
+        <circle id="pl-spark" class="pl__spark" r="3.2" cx="100" cy="20"></circle>
+      </svg>
+    </div>
+
+    <div class="pl__meter">
+      <div class="pl__count">
+        <span id="pl-num" class="pl__num">0</span><span class="pl__pct">%</span>
+      </div>
+      <div class="pl__rail">
+        <span id="pl-fill" class="pl__fill"></span>
+      </div>
+    </div>
+
+    <p class="pl__line"><span class="pl__line-inner gradient-text">EVRİM BAŞLIYOR</span></p>
+    <p class="pl__status" id="pl-status">Orman protokolü yükleniyor...</p>
+  </div>
+</div>
+
+<!-- ------------------------- NAV ------------------------- -->
+<header class="bc-nav" id="bc-nav">
+  <div class="bc-nav__inner">
+
+    <a class="bc-nav__brand" href="#top" data-cursor="Efsaneye dön" aria-label="Berkay Cabbar — başa dön">
+      <span class="bc-nav__sigil" aria-hidden="true">
+        <svg viewBox="0 0 40 40" focusable="false">
+          <defs>
+            <linearGradient id="bc-sigil-grad" x1="0" y1="1" x2="1" y2="0">
+              <stop class="pl-stop-amber" offset="0%"></stop>
+              <stop class="pl-stop-leaf" offset="55%"></stop>
+              <stop class="pl-stop-cyan" offset="100%"></stop>
+            </linearGradient>
+          </defs>
+          <circle cx="20" cy="20" r="17.5" fill="none" stroke="url(#bc-sigil-grad)" stroke-width="1.4" opacity=".55"></circle>
+          <path d="M13 27.5V12.5h6.6c3.1 0 5 1.5 5 3.9 0 1.7-1 2.9-2.6 3.4 2 .4 3.3 1.8 3.3 3.8 0 2.6-2 3.9-5.3 3.9H13z"
+                fill="url(#bc-sigil-grad)"></path>
+          <path class="bc-nav__sigil-arc" d="M6 30c3.5 4.5 9 7 14 7s10.5-2.5 14-7"
+                fill="none" stroke="url(#bc-sigil-grad)" stroke-width="1.4" stroke-linecap="round" opacity=".8"></path>
+        </svg>
+      </span>
+      <span class="bc-nav__word gradient-text">BERKAY CABBAR</span>
+      <span class="bc-nav__tag">efsane / v2.0 insan</span>
+    </a>
+
+    <nav class="bc-nav__links" aria-label="Ana menü">
+      <a href="#evrim" data-cursor="Evrim"><span>Evrim</span></a>
+      <a href="#hikaye" data-cursor="Hikâye"><span>Hikâye</span></a>
+      <a href="#guc" data-cursor="Güç"><span>Güç</span></a>
+      <a href="#istatistik" data-cursor="Rakamlar"><span>İstatistik</span></a>
+      <a href="#sozler" data-cursor="Sözler"><span>Sözler</span></a>
+      <a href="#manifesto" data-cursor="Manifesto"><span>Manifesto</span></a>
+    </nav>
+
+    <button class="bc-nav__burger" id="bc-burger" type="button"
+            aria-expanded="false" aria-controls="bc-menu" aria-label="Menüyü aç">
+      <span class="bc-nav__burger-box" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </span>
+    </button>
+  </div>
+  <span class="bc-nav__beam" aria-hidden="true"></span>
+</header>
+
+<!-- --------------------- MOBILE MENU --------------------- -->
+<div class="bc-menu" id="bc-menu" aria-hidden="true">
+  <div class="bc-menu__glow" aria-hidden="true"></div>
+  <nav class="bc-menu__nav" aria-label="Tam ekran menü">
+    <a class="bc-menu__link" href="#evrim">
+      <span class="bc-menu__idx">01</span>
+      <span class="bc-menu__label">Evrim</span>
+      <span class="bc-menu__hint">Goril çağından insan çağına</span>
+    </a>
+    <a class="bc-menu__link" href="#hikaye">
+      <span class="bc-menu__idx">02</span>
+      <span class="bc-menu__label">Hikâye</span>
+      <span class="bc-menu__hint">Ormanda başlayan destan</span>
+    </a>
+    <a class="bc-menu__link" href="#guc">
+      <span class="bc-menu__idx">03</span>
+      <span class="bc-menu__label">Güç</span>
+      <span class="bc-menu__hint">Ham primal kuvvet, rafine akıl</span>
+    </a>
+    <a class="bc-menu__link" href="#istatistik">
+      <span class="bc-menu__idx">04</span>
+      <span class="bc-menu__label">İstatistik</span>
+      <span class="bc-menu__hint">Ölçülemeyeni ölçme denemesi</span>
+    </a>
+    <a class="bc-menu__link" href="#sozler">
+      <span class="bc-menu__idx">05</span>
+      <span class="bc-menu__label">Sözler</span>
+      <span class="bc-menu__hint">Tanıkların ifadeleri</span>
+    </a>
+    <a class="bc-menu__link" href="#manifesto">
+      <span class="bc-menu__idx">06</span>
+      <span class="bc-menu__label">Manifesto</span>
+      <span class="bc-menu__hint">Efsanenin son sözü</span>
+    </a>
+  </nav>
+  <p class="bc-menu__foot">
+    <span class="bc-menu__foot-dot" aria-hidden="true"></span>
+    Bir zamanlar goril, şimdi zarafetin ta kendisi: <strong>Berkay Cabbar</strong>
+  </p>
+</div>

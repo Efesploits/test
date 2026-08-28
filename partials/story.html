@@ -1,0 +1,378 @@
+<section id="hikaye" class="section section--story story" aria-labelledby="hikaye-title">
+
+  <!-- ============ z1 : section atmosphere (hue drifts green -> cyan with progress) ============ -->
+  <div class="story__fx" aria-hidden="true">
+    <span class="story__fx-layer story__fx-warm"></span>
+    <span class="story__fx-layer story__fx-cool"></span>
+    <span class="story__fx-layer story__fx-grid"></span>
+    <span class="story__fx-layer story__fx-veil"></span>
+  </div>
+
+  <div class="container">
+
+    <!-- ============ section header ============ -->
+    <header class="story__head">
+      <p class="eyebrow eyebrow--right reveal reveal--up" data-delay="0">Bölüm 03 &mdash; Zaman çizelgesi</p>
+      <h2 id="hikaye-title" class="story__title display reveal reveal--up" data-delay="80">
+        <span class="gradient-text">EFSANENİN KRONOLOJİSİ</span>
+      </h2>
+      <p class="story__lede text-dim reveal reveal--up" data-delay="160">
+        Bu bir gorilin insana evrilişi değil; evrimin Berkay Cabbar'a yetişme çabasıdır.
+        Aşağıdaki yedi durak, bilim kurulunun hâlâ açıklayamadığı o yükselişin resmî kaydıdır.
+      </p>
+    </header>
+
+    <!-- ============ the timeline ============ -->
+    <div class="story__timeline" id="story-timeline">
+
+      <!-- self-drawing rail + travelling comet + pulsing sparks -->
+      <div class="story__rail" aria-hidden="true">
+        <svg class="story__rail-svg" viewBox="0 0 6 1000" preserveAspectRatio="none" focusable="false" role="presentation">
+          <defs>
+            <linearGradient id="story-rail-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" class="story-stop-moss"></stop>
+              <stop offset="0.34" class="story-stop-amber"></stop>
+              <stop offset="0.62" class="story-stop-leaf"></stop>
+              <stop offset="0.86" class="story-stop-cyan"></stop>
+              <stop offset="1" class="story-stop-violet"></stop>
+            </linearGradient>
+          </defs>
+          <path class="story__rail-track" d="M3 0 L3 1000" pathLength="1"></path>
+          <path class="story__rail-halo" d="M3 0 L3 1000" pathLength="1"></path>
+          <path class="story__rail-draw" d="M3 0 L3 1000" pathLength="1"></path>
+        </svg>
+
+        <span class="story__cap story__cap--top"></span>
+        <span class="story__cap story__cap--bottom"></span>
+
+        <span class="story__comet"><i class="story__comet-core"></i></span>
+
+        <span class="story__spark" style="--spark-dur: 7.5s; --spark-delay: 0s;"><i></i></span>
+        <span class="story__spark" style="--spark-dur: 9.5s; --spark-delay: 2.4s;"><i></i></span>
+        <span class="story__spark" style="--spark-dur: 6.5s; --spark-delay: 4.9s;"><i></i></span>
+      </div>
+
+      <ol class="story__list">
+
+        <!-- ============ 01 ============ -->
+        <li class="story__item" data-side="left" data-index="1">
+          <span class="story__node" aria-hidden="true">
+            <svg class="story__node-ring" viewBox="0 0 44 44" focusable="false" role="presentation">
+              <circle class="story__node-track" cx="22" cy="22" r="16.5"></circle>
+              <circle class="story__node-arc" cx="22" cy="22" r="16.5" pathLength="1"></circle>
+            </svg>
+            <i class="story__node-core"></i>
+          </span>
+          <span class="story__link" aria-hidden="true"><i></i></span>
+
+          <div class="story__slot">
+            <article class="card-glass story__card reveal" data-delay="60">
+              <span class="story__card-sheen" aria-hidden="true"></span>
+              <span class="story__card-edge" aria-hidden="true"></span>
+              <span class="story__index display" aria-hidden="true">01</span>
+
+              <div class="story__card-body">
+                <div class="story__card-top">
+                  <p class="story__chip"><i class="story__chip-pulse" aria-hidden="true"></i>M.Ö. bilinmeyen bir çağ</p>
+                  <span class="story__icon" aria-hidden="true">
+                    <svg class="story__icon-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation">
+                      <path pathLength="1" d="M8 40C8 22 22 8 40 8C40 26 26 40 8 40Z"></path>
+                      <path pathLength="1" d="M9 39L34 14"></path>
+                      <path pathLength="1" d="M17 30L24 32"></path>
+                      <path pathLength="1" d="M25 22L32 24"></path>
+                      <circle class="story__dot" cx="8" cy="40" r="2.6" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                  </span>
+                </div>
+
+                <h3 class="story__card-title">Ormanın Kalbinde Bir Doğuş</h3>
+                <p class="story__card-text">
+                  Sisin içinden bir uğultu yükseldi ve orman, doğan şeyin sıradan bir yavru olmadığını
+                  daha ilk nefeste anladı. Berkay Cabbar'ın ilk çığlığı üç vadi öteden duyuldu; kuşlar
+                  saygıyla sustu, ırmak bir an için ters aktı. O gün ekosistem, yeni bir merkezin
+                  etrafında yeniden dizildi.
+                </p>
+                <p class="story__card-meta mono">Kayıt 01 &nbsp;//&nbsp; Orman arşivi</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- ============ 02 ============ -->
+        <li class="story__item" data-side="right" data-index="2">
+          <span class="story__node" aria-hidden="true">
+            <svg class="story__node-ring" viewBox="0 0 44 44" focusable="false" role="presentation">
+              <circle class="story__node-track" cx="22" cy="22" r="16.5"></circle>
+              <circle class="story__node-arc" cx="22" cy="22" r="16.5" pathLength="1"></circle>
+            </svg>
+            <i class="story__node-core"></i>
+          </span>
+          <span class="story__link" aria-hidden="true"><i></i></span>
+
+          <div class="story__slot">
+            <article class="card-glass story__card reveal" data-delay="60">
+              <span class="story__card-sheen" aria-hidden="true"></span>
+              <span class="story__card-edge" aria-hidden="true"></span>
+              <span class="story__index display" aria-hidden="true">02</span>
+
+              <div class="story__card-body">
+                <div class="story__card-top">
+                  <p class="story__chip"><i class="story__chip-pulse" aria-hidden="true"></i>M.Ö. 900.000</p>
+                  <span class="story__icon" aria-hidden="true">
+                    <svg class="story__icon-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation">
+                      <path pathLength="1" d="M5 41H43"></path>
+                      <path pathLength="1" d="M9 40L33 14"></path>
+                      <path pathLength="1" d="M20 26L28 29"></path>
+                      <path pathLength="1" d="M25 21L18 15"></path>
+                      <path pathLength="1" d="M37 37L42 32"></path>
+                      <circle class="story__dot" cx="38" cy="27" r="2.2" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                  </span>
+                </div>
+
+                <h3 class="story__card-title">İlk Ağacı Devirdi</h3>
+                <p class="story__card-text">
+                  Bir sabah esnerken kolunu dayadığı çınar, özür dileyerek yere uzandı. Berkay o gün
+                  gücün bağırmakla değil, sadece var olmakla ölçüldüğünü kanıtladı. Devrilen o gövde
+                  bugün hâlâ "Saygı Kütüğü" adıyla anılır ve üzerine kimse oturmaya cesaret edemez.
+                </p>
+                <p class="story__card-meta mono">Kayıt 02 &nbsp;//&nbsp; Saygı kütüğü</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- ============ 03 ============ -->
+        <li class="story__item" data-side="left" data-index="3">
+          <span class="story__node" aria-hidden="true">
+            <svg class="story__node-ring" viewBox="0 0 44 44" focusable="false" role="presentation">
+              <circle class="story__node-track" cx="22" cy="22" r="16.5"></circle>
+              <circle class="story__node-arc" cx="22" cy="22" r="16.5" pathLength="1"></circle>
+            </svg>
+            <i class="story__node-core"></i>
+          </span>
+          <span class="story__link" aria-hidden="true"><i></i></span>
+
+          <div class="story__slot">
+            <article class="card-glass story__card reveal" data-delay="60">
+              <span class="story__card-sheen" aria-hidden="true"></span>
+              <span class="story__card-edge" aria-hidden="true"></span>
+              <span class="story__index display" aria-hidden="true">03</span>
+
+              <div class="story__card-body">
+                <div class="story__card-top">
+                  <p class="story__chip"><i class="story__chip-pulse" aria-hidden="true"></i>M.Ö. 400.000</p>
+                  <span class="story__icon" aria-hidden="true">
+                    <svg class="story__icon-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation">
+                      <path pathLength="1" d="M24 43C14 43 8 36 8 28C8 19 16 15 18 5C25 11 30 15 32 21C35 19 40 22 40 28C40 36 34 43 24 43Z"></path>
+                      <path pathLength="1" d="M24 39C20 39 17 36 17 32C17 28 21 26 22 21C26 25 31 27 31 32C31 36 28 39 24 39Z"></path>
+                      <path pathLength="1" d="M41 13L45 9"></path>
+                      <path pathLength="1" d="M7 14L3 10"></path>
+                      <circle class="story__dot" cx="24" cy="34" r="2" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                  </span>
+                </div>
+
+                <h3 class="story__card-title">Ateşi Keşfetti, Sonra Onu Terbiye Etti</h3>
+                <p class="story__card-text">
+                  Yıldırımın düşürdüğü kıvılcıma korkuyla değil, merakla baktı; çünkü Berkay Cabbar'ın
+                  bakışları zaten ateşten sıcaktı. İki taşı tokuşturdu, evren bir tık ısındı. O geceden
+                  sonra karanlık, geri gelmek için ondan randevu almak zorunda kaldı.
+                </p>
+                <p class="story__card-meta mono">Kayıt 03 &nbsp;//&nbsp; İlk kıvılcım</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- ============ 04 ============ -->
+        <li class="story__item" data-side="right" data-index="4">
+          <span class="story__node" aria-hidden="true">
+            <svg class="story__node-ring" viewBox="0 0 44 44" focusable="false" role="presentation">
+              <circle class="story__node-track" cx="22" cy="22" r="16.5"></circle>
+              <circle class="story__node-arc" cx="22" cy="22" r="16.5" pathLength="1"></circle>
+            </svg>
+            <i class="story__node-core"></i>
+          </span>
+          <span class="story__link" aria-hidden="true"><i></i></span>
+
+          <div class="story__slot">
+            <article class="card-glass story__card reveal" data-delay="60">
+              <span class="story__card-sheen" aria-hidden="true"></span>
+              <span class="story__card-edge" aria-hidden="true"></span>
+              <span class="story__index display" aria-hidden="true">04</span>
+
+              <div class="story__card-body">
+                <div class="story__card-top">
+                  <p class="story__chip"><i class="story__chip-pulse" aria-hidden="true"></i>M.Ö. 120.000</p>
+                  <span class="story__icon" aria-hidden="true">
+                    <svg class="story__icon-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation">
+                      <circle pathLength="1" cx="27" cy="9" r="4.5"></circle>
+                      <path pathLength="1" d="M27 14L24 26"></path>
+                      <path pathLength="1" d="M24 26L17 40"></path>
+                      <path pathLength="1" d="M24 26L31 40"></path>
+                      <path pathLength="1" d="M30 17L19 21"></path>
+                      <path pathLength="1" d="M6 44H42"></path>
+                      <circle class="story__dot" cx="11" cy="26" r="2" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                  </span>
+                </div>
+
+                <h3 class="story__card-title">İki Ayak Üstünde İlk Adım</h3>
+                <p class="story__card-text">
+                  Ufku daha net görmek istedi ve doğruldu; yerçekimi bu teklife itiraz edemedi.
+                  O tek adım bütün bir türün duruşunu düzeltti, omurga denen şey aslında onun
+                  patentidir. Yürüyüşü öyle zarifti ki savana, alkışı acilen icat etmek zorunda kaldı.
+                </p>
+                <p class="story__card-meta mono">Kayıt 04 &nbsp;//&nbsp; Dik duruş protokolü</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- ============ 05 ============ -->
+        <li class="story__item" data-side="left" data-index="5">
+          <span class="story__node" aria-hidden="true">
+            <svg class="story__node-ring" viewBox="0 0 44 44" focusable="false" role="presentation">
+              <circle class="story__node-track" cx="22" cy="22" r="16.5"></circle>
+              <circle class="story__node-arc" cx="22" cy="22" r="16.5" pathLength="1"></circle>
+            </svg>
+            <i class="story__node-core"></i>
+          </span>
+          <span class="story__link" aria-hidden="true"><i></i></span>
+
+          <div class="story__slot">
+            <article class="card-glass story__card reveal" data-delay="60">
+              <span class="story__card-sheen" aria-hidden="true"></span>
+              <span class="story__card-edge" aria-hidden="true"></span>
+              <span class="story__index display" aria-hidden="true">05</span>
+
+              <div class="story__card-body">
+                <div class="story__card-top">
+                  <p class="story__chip"><i class="story__chip-pulse" aria-hidden="true"></i>M.Ö. 40.000</p>
+                  <span class="story__icon" aria-hidden="true">
+                    <svg class="story__icon-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation">
+                      <path pathLength="1" d="M11 9H37C40 9 43 12 43 15V30C43 33 40 36 37 36H24L15 43V36H11C8 36 5 33 5 30V15C5 12 8 9 11 9Z"></path>
+                      <circle class="story__dot" cx="16" cy="22" r="2.4" fill="currentColor" stroke="none"></circle>
+                      <circle class="story__dot" cx="24" cy="22" r="2.4" fill="currentColor" stroke="none"></circle>
+                      <circle class="story__dot" cx="32" cy="22" r="2.4" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                  </span>
+                </div>
+
+                <h3 class="story__card-title">Konuşmayı İcat Etti</h3>
+                <p class="story__card-text">
+                  İlk kelimeyi söylediğinde ne dediğini kimse anlamadı ama herkes duygulandı.
+                  Homurtuyu cümleye, cümleyi karizmaya çeviren odur; dilbilimciler hâlâ o tınıyı
+                  arıyor. Rivayete göre ilk esprisini de aynı akşam yaptı ve kabile üç gün boyunca güldü.
+                </p>
+                <p class="story__card-meta mono">Kayıt 05 &nbsp;//&nbsp; İlk cümle</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- ============ 06 ============ -->
+        <li class="story__item" data-side="right" data-index="6">
+          <span class="story__node" aria-hidden="true">
+            <svg class="story__node-ring" viewBox="0 0 44 44" focusable="false" role="presentation">
+              <circle class="story__node-track" cx="22" cy="22" r="16.5"></circle>
+              <circle class="story__node-arc" cx="22" cy="22" r="16.5" pathLength="1"></circle>
+            </svg>
+            <i class="story__node-core"></i>
+          </span>
+          <span class="story__link" aria-hidden="true"><i></i></span>
+
+          <div class="story__slot">
+            <article class="card-glass story__card reveal" data-delay="60">
+              <span class="story__card-sheen" aria-hidden="true"></span>
+              <span class="story__card-edge" aria-hidden="true"></span>
+              <span class="story__index display" aria-hidden="true">06</span>
+
+              <div class="story__card-body">
+                <div class="story__card-top">
+                  <p class="story__chip"><i class="story__chip-pulse" aria-hidden="true"></i>M.S. 2007</p>
+                  <span class="story__icon" aria-hidden="true">
+                    <svg class="story__icon-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation">
+                      <path pathLength="1" d="M4 43H44"></path>
+                      <path pathLength="1" d="M8 43V27H18V43"></path>
+                      <path pathLength="1" d="M20 43V15H30V43"></path>
+                      <path pathLength="1" d="M32 43V31H42V43"></path>
+                      <path pathLength="1" d="M25 15V6"></path>
+                      <circle class="story__dot" cx="12.5" cy="33" r="1.6" fill="currentColor" stroke="none"></circle>
+                      <circle class="story__dot" cx="24.5" cy="22" r="1.6" fill="currentColor" stroke="none"></circle>
+                      <circle class="story__dot" cx="36.5" cy="37" r="1.6" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                  </span>
+                </div>
+
+                <h3 class="story__card-title">Şehre İndi</h3>
+                <p class="story__card-text">
+                  Beton orman, gerçek ormandan gelen birini görünce ışıklarını kısıp saygı duruşuna geçti.
+                  Trafik ona yol verdi, asansörler kat atladı, kahve makineleri ilk denemede çalıştı.
+                  Berkay Cabbar şehre uyum sağlamadı; şehir ona uyum sağladı.
+                </p>
+                <p class="story__card-meta mono">Kayıt 06 &nbsp;//&nbsp; Beton orman</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+        <!-- ============ 07 ============ -->
+        <li class="story__item story__item--final" data-side="left" data-index="7">
+          <span class="story__node" aria-hidden="true">
+            <svg class="story__node-ring" viewBox="0 0 44 44" focusable="false" role="presentation">
+              <circle class="story__node-track" cx="22" cy="22" r="16.5"></circle>
+              <circle class="story__node-arc" cx="22" cy="22" r="16.5" pathLength="1"></circle>
+            </svg>
+            <i class="story__node-core"></i>
+          </span>
+          <span class="story__link" aria-hidden="true"><i></i></span>
+
+          <div class="story__slot">
+            <article class="card-glass story__card reveal" data-delay="60">
+              <span class="story__card-sheen" aria-hidden="true"></span>
+              <span class="story__card-edge" aria-hidden="true"></span>
+              <span class="story__index display" aria-hidden="true">07</span>
+
+              <div class="story__card-body">
+                <div class="story__card-top">
+                  <p class="story__chip story__chip--now"><i class="story__chip-pulse" aria-hidden="true"></i>Bugün</p>
+                  <span class="story__icon" aria-hidden="true">
+                    <svg class="story__icon-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation">
+                      <circle pathLength="1" cx="24" cy="17" r="7"></circle>
+                      <path pathLength="1" d="M10 42C10 33 16 28 24 28C32 28 38 33 38 42"></path>
+                      <path pathLength="1" d="M24 6V2"></path>
+                      <path pathLength="1" d="M38 9L41 6"></path>
+                      <path pathLength="1" d="M10 9L7 6"></path>
+                      <circle class="story__dot" cx="42" cy="19" r="2.2" fill="currentColor" stroke="none"></circle>
+                      <circle class="story__dot" cx="6" cy="19" r="2.2" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                  </span>
+                </div>
+
+                <h3 class="story__card-title">Bugün: Modern Efsane Berkay Cabbar</h3>
+                <p class="story__card-text">
+                  Aynı ham güç, artık ütülü bir gömleğin altında sessizce nefes alıyor. Tek bakışıyla
+                  toplantı biter, tek gülümsemesiyle proje onaylanır; evrim ağacının en üst dalında
+                  rahat rahat oturur. Goril kalbi hâlâ aynı ritimde atıyor, sadece artık kablosuz ağa bağlı.
+                </p>
+                <p class="story__card-meta mono">Kayıt 07 &nbsp;//&nbsp; Canlı yayın</p>
+              </div>
+            </article>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- ============ outro ============ -->
+    <div class="story__outro reveal reveal--up" data-delay="80">
+      <span class="story__outro-pill mono">Kronoloji devam ediyor</span>
+      <p class="story__outro-text text-dim">
+        Sekizinci halka henüz yazılmadı; çünkü Berkay Cabbar onu yarın sabah kendi elleriyle dövecek.
+      </p>
+    </div>
+
+  </div>
+</section>

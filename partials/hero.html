@@ -1,0 +1,182 @@
+<section id="hero" class="section section--hero hero" aria-labelledby="hero-title">
+
+  <!-- ============ z0 : particle constellation field ============ -->
+  <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+
+  <!-- ============ z0 : drifting gradient orbs ============ -->
+  <div class="hero__orbs" aria-hidden="true">
+    <span class="hero__orb hero__orb--amber"></span>
+    <span class="hero__orb hero__orb--moss"></span>
+    <span class="hero__orb hero__orb--cyan"></span>
+  </div>
+
+  <!-- ============ z1 : parallax silhouette layers ============ -->
+  <div class="hero__scene" aria-hidden="true">
+
+    <!-- far : canopy on the left, skyline on the right -->
+    <div class="hero__layer hero__layer--far" data-depth="0.22">
+      <svg class="hero__ridge" viewBox="0 0 1440 340" preserveAspectRatio="xMidYMax meet" focusable="false" role="presentation">
+        <defs>
+          <linearGradient id="hero-ridgeGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" class="hero-stop-jungle"></stop>
+            <stop offset="0.5" class="hero-stop-deep"></stop>
+            <stop offset="1" class="hero-stop-void"></stop>
+          </linearGradient>
+        </defs>
+        <path class="hero__ridge-shape" fill="url(#hero-ridgeGrad)"
+              d="M0 340 L0 196 C40 156 72 182 98 154 C122 128 152 144 174 120 C198 94 226 118 252 100 C278 82 302 104 332 96 C362 88 382 112 412 108 C442 104 462 84 494 102 C522 118 542 146 576 152 C620 160 660 186 700 200 C742 214 776 202 812 208 L840 214 L840 212 L878 212 L878 170 L904 170 L904 212 L948 212 L948 120 L998 120 L998 94 L1012 94 L1012 120 L1048 120 L1048 212 L1094 212 L1094 150 L1138 150 L1138 106 L1150 106 L1150 150 L1194 150 L1194 212 L1248 212 L1248 166 L1298 166 L1298 138 L1310 138 L1310 166 L1358 166 L1358 212 L1440 212 L1440 340 Z"></path>
+        <g class="hero__windows">
+          <rect x="958" y="140" width="8" height="10"></rect>
+          <rect x="976" y="140" width="8" height="10"></rect>
+          <rect x="958" y="164" width="8" height="10"></rect>
+          <rect x="976" y="188" width="8" height="10"></rect>
+          <rect x="1058" y="164" width="8" height="10"></rect>
+          <rect x="1076" y="188" width="8" height="10"></rect>
+          <rect x="1104" y="172" width="8" height="10"></rect>
+          <rect x="1122" y="196" width="8" height="10"></rect>
+          <rect x="1160" y="172" width="8" height="10"></rect>
+          <rect x="1258" y="186" width="8" height="10"></rect>
+          <rect x="1276" y="186" width="8" height="10"></rect>
+          <rect x="1320" y="186" width="8" height="10"></rect>
+        </g>
+        <g class="hero__antennas">
+          <path d="M1005 94 L1005 62"></path>
+          <path d="M1144 106 L1144 78"></path>
+          <path d="M1304 138 L1304 116"></path>
+        </g>
+      </svg>
+    </div>
+
+    <!-- mid : the two silhouettes, primal on the left, evolved on the right -->
+    <div class="hero__layer hero__layer--mid" data-depth="0.55">
+      <svg class="hero__sil hero__sil--ape" viewBox="0 0 640 460" preserveAspectRatio="xMinYMax meet" focusable="false" role="presentation">
+        <defs>
+          <linearGradient id="hero-apeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" class="hero-stop-fur"></stop>
+            <stop offset="1" class="hero-stop-jungle"></stop>
+          </linearGradient>
+        </defs>
+        <g fill="url(#hero-apeGrad)">
+          <ellipse cx="190" cy="300" rx="100" ry="98"></ellipse>
+          <ellipse cx="300" cy="178" rx="96" ry="62"></ellipse>
+          <path d="M92 306 C86 232 150 168 240 152 C300 141 356 152 392 178 C424 202 434 250 424 296 C414 344 392 380 350 400 C300 424 232 424 178 402 C124 380 96 350 92 306 Z"></path>
+          <path d="M414 168 C428 136 470 122 500 138 C524 151 534 178 526 202 C548 208 560 220 558 232 C556 248 530 258 502 256 C466 253 436 238 422 216 C410 197 408 182 414 168 Z"></path>
+          <path d="M436 150 C452 128 492 120 512 132 C486 128 456 136 436 150 Z"></path>
+          <path d="M366 196 C412 196 442 232 444 288 C446 336 442 384 446 420 C448 436 434 444 416 442 C398 440 388 430 388 416 C388 380 384 336 378 296 C372 252 356 224 366 196 Z"></path>
+          <path d="M262 300 C292 306 306 336 306 372 C306 400 310 420 312 430 C314 442 300 448 286 446 C272 444 264 436 264 424 C264 400 258 372 250 348 C242 324 246 306 262 300 Z"></path>
+          <path d="M150 356 C186 366 202 392 202 416 C202 432 188 440 170 440 C148 440 132 430 128 414 C124 392 130 366 150 356 Z"></path>
+        </g>
+        <path class="hero__rim hero__rim--warm"
+              d="M92 306 C86 232 150 168 240 152 C300 141 356 152 392 178 C424 202 434 250 424 296"></path>
+        <path class="hero__rim hero__rim--warm"
+              d="M414 168 C428 136 470 122 500 138 C524 151 534 178 526 202"></path>
+      </svg>
+
+      <svg class="hero__sil hero__sil--human" viewBox="0 0 300 460" preserveAspectRatio="xMaxYMax meet" focusable="false" role="presentation">
+        <defs>
+          <linearGradient id="hero-humanGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" class="hero-stop-chrome"></stop>
+            <stop offset="1" class="hero-stop-void"></stop>
+          </linearGradient>
+        </defs>
+        <g fill="url(#hero-humanGrad)">
+          <circle cx="150" cy="92" r="30"></circle>
+          <path d="M150 122 C136 122 128 130 126 142 C110 148 96 156 90 168 C82 184 78 206 78 228 C78 246 82 262 86 272 C90 282 102 280 104 270 C106 258 108 240 112 228 C114 258 112 288 108 312 L192 312 C188 288 186 258 188 228 C192 240 194 258 196 270 C198 280 210 282 214 272 C218 262 222 246 222 228 C222 206 218 184 210 168 C204 156 190 148 174 142 C172 130 164 122 150 122 Z"></path>
+          <path d="M110 306 L144 306 C144 344 140 388 136 424 C134 436 114 436 112 424 C108 388 106 344 110 306 Z"></path>
+          <path d="M156 306 L190 306 C194 344 192 388 188 424 C186 436 166 436 164 424 C160 388 156 344 156 306 Z"></path>
+        </g>
+        <path class="hero__rim hero__rim--cool"
+              d="M126 142 C110 148 96 156 90 168 C82 184 78 206 78 228 C78 246 82 262 86 272"></path>
+        <path class="hero__rim hero__rim--cool" d="M122 92 A30 30 0 0 1 168 66"></path>
+      </svg>
+
+      <span class="hero__horizon"></span>
+    </div>
+
+    <!-- near : foreground foliage on the left, circuitry on the right -->
+    <div class="hero__layer hero__layer--near" data-depth="1">
+      <svg class="hero__foliage" viewBox="0 0 460 240" preserveAspectRatio="xMinYMax meet" focusable="false" role="presentation">
+        <g class="hero__leaf">
+          <path d="M-20 250 C70 220 132 162 168 76 C186 148 158 214 66 252 Z"></path>
+          <path d="M-30 250 C40 196 62 120 58 26 C112 92 118 176 46 250 Z"></path>
+          <path d="M10 254 C118 236 200 196 262 128 C246 206 176 250 78 262 Z"></path>
+          <path d="M118 258 C176 244 216 218 250 182 C238 226 196 254 148 264 Z"></path>
+        </g>
+      </svg>
+
+      <svg class="hero__circuit" viewBox="0 0 460 240" preserveAspectRatio="xMaxYMax meet" focusable="false" role="presentation">
+        <g class="hero__trace">
+          <path d="M460 40 L360 40 L330 70 L330 150 L300 180 L300 240"></path>
+          <path d="M460 110 L400 110 L370 140 L370 240"></path>
+          <path d="M460 186 L420 186 L396 210 L396 240"></path>
+        </g>
+        <g class="hero__node">
+          <circle cx="330" cy="70" r="4"></circle>
+          <circle cx="370" cy="140" r="4"></circle>
+          <circle cx="396" cy="210" r="4"></circle>
+        </g>
+      </svg>
+    </div>
+
+    <span class="hero__vignette"></span>
+    <span class="hero__scan"></span>
+  </div>
+
+  <!-- ============ z2 : content ============ -->
+  <div class="hero__content">
+
+    <p class="hero__eyebrow">
+      <span class="hero__pulse" aria-hidden="true"></span>
+      BİR EFSANENİN DOĞUŞU
+    </p>
+
+    <h1 id="hero-title" class="hero__title">
+      <span class="hero__title-line" data-text="BERKAY CABBAR" data-name="Berkay Cabbar">BERKAY CABBAR</span>
+      <span class="hero__title-shine" aria-hidden="true">BERKAY CABBAR</span>
+    </h1>
+
+    <p class="hero__tagline">
+      <span class="hero__sr">Goril olarak doğdu. İnsan olarak yükseldi. Efsane olarak kaldı. Evrimin son halkası.</span>
+      <span class="hero__type" aria-hidden="true"><span class="hero__type-text" id="hero-type">Goril olarak doğdu.</span><span class="hero__caret"></span></span>
+    </p>
+
+    <div class="hero__actions">
+      <a class="hero__btn hero__btn--primary" href="#evrim" data-hero-magnetic data-hero-scroll="#evrim">
+        <span class="hero__btn-label">EVRİMİ İZLE</span>
+        <span class="hero__btn-sheen" aria-hidden="true"></span>
+      </a>
+      <a class="hero__btn hero__btn--ghost" href="#hikaye" data-hero-magnetic data-hero-scroll="#hikaye">
+        <span class="hero__btn-label">EFSANEYİ OKU</span>
+        <span class="hero__btn-sheen" aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <ul class="hero__stats">
+      <li class="hero__stat">
+        <span class="hero__stat-num">1</span>
+        <span class="hero__stat-label">Efsane</span>
+      </li>
+      <li class="hero__stat">
+        <span class="hero__stat-num">%1000</span>
+        <span class="hero__stat-label">Karizma</span>
+      </li>
+      <li class="hero__stat">
+        <span class="hero__stat-num">&#8734;</span>
+        <span class="hero__stat-label">Enerji</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============ scroll cue ============ -->
+  <a class="hero__cue" href="#evrim" data-hero-scroll="#evrim" aria-label="Aşağı kaydır, evrim bölümüne git">
+    <span class="hero__cue-line" aria-hidden="true"></span>
+    <span class="hero__cue-mouse" aria-hidden="true">
+      <svg viewBox="0 0 26 40" focusable="false" role="presentation">
+        <rect x="1.5" y="1.5" width="23" height="37" rx="11.5"></rect>
+        <circle class="hero__cue-dot" cx="13" cy="12" r="3"></circle>
+      </svg>
+    </span>
+    <span class="hero__cue-label">KAYDIR</span>
+  </a>
+
+</section>

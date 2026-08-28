@@ -1,0 +1,616 @@
+/* ============================================================
+   BERKAY CABBAR — EVOLUTION :: BASE / GLOBAL PRIMITIVES
+   Owner: core agent. Requires assets/css/tokens.css to load first.
+   Contains: reset, animated global backdrop, layout primitives,
+   reveal system, shared components, scroll-progress bar,
+   custom cursor, marquee utility, reduced-motion killswitch.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   0. Local (non-brand) helper variables
+   ------------------------------------------------------------ */
+:root {
+  --bc-nav-h: 72px;          /* live height of .bc-nav, kept in sync by JS */
+  --scroll-progress: 0;      /* 0..1, written by core.js on scroll          */
+  --vh: 1vh;                 /* real viewport unit, written by core.js      */
+  --bc-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------
+   1. Reset
+   ------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--bc-nav-h) + 18px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 230, 255, .55) rgba(255, 255, 255, .04);
+}
+
+html.bc-preloader-active,
+html.bc-menu-open { overflow: hidden; }
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(130% 90% at 50% -12%, rgba(139, 92, 255, .12), transparent 62%),
+    radial-gradient(90% 70% at 50% 108%, rgba(34, 230, 255, .10), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, figure, blockquote, dl, dd { margin: 0; }
+
+h1, h2, h3, h4, h5, h6 { line-height: 1.05; font-weight: 800; text-wrap: balance; }
+
+ul[class], ol[class] { list-style: none; margin: 0; padding: 0; }
+
+img, svg, canvas, video { display: block; max-width: 100%; }
+svg { overflow: visible; }
+
+a { color: inherit; text-decoration: none; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+
+hr { border: 0; height: 1px; background: var(--stroke); margin: 0; }
+
+::selection { background: var(--accent); color: var(--void-900); text-shadow: none; }
+
+/* ------------------------------------------------------------
+   2. Custom scrollbar (WebKit / Blink)
+   ------------------------------------------------------------ */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, .035); }
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--grad-full);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--grad-evolved); background-clip: content-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ------------------------------------------------------------
+   3. Focus
+   ------------------------------------------------------------ */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.sr-only-focusable:focus-visible {
+  position: fixed !important;
+  top: 12px; left: 12px;
+  width: auto; height: auto;
+  margin: 0; padding: .7em 1.2em;
+  clip: auto; clip-path: none;
+  background: var(--bg-soft);
+  border: 1px solid var(--stroke-glow);
+  border-radius: var(--r-pill);
+  z-index: var(--z-modal);
+}
+
+/* ------------------------------------------------------------
+   4. Global animated backdrop (element built by core.js)
+   ------------------------------------------------------------ */
+#bc-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+#bc-backdrop > * { position: absolute; inset: 0; }
+
+.bc-backdrop__mesh {
+  inset: -25%;
+  background:
+    radial-gradient(34% 38% at 16% 20%, rgba(255, 176, 46, .20), transparent 62%),
+    radial-gradient(32% 36% at 84% 16%, rgba(139, 92, 255, .22), transparent 64%),
+    radial-gradient(42% 44% at 74% 76%, rgba(34, 230, 255, .18), transparent 62%),
+    radial-gradient(38% 40% at 22% 84%, rgba(63, 163, 99, .17), transparent 64%),
+    radial-gradient(28% 30% at 52% 48%, rgba(255, 62, 165, .10), transparent 66%);
+  opacity: .9;
+  will-change: transform;
+  animation: bc-mesh-drift 38s var(--e-in-out) infinite alternate;
+}
+
+.bc-backdrop__conic {
+  inset: -40%;
+  background: conic-gradient(from 0deg at 50% 50%,
+    rgba(34, 230, 255, .055),
+    rgba(255, 62, 165, .045),
+    rgba(255, 176, 46, .055),
+    rgba(63, 163, 99, .045),
+    rgba(34, 230, 255, .055));
+  mix-blend-mode: screen;
+  will-change: transform;
+  animation: bc-conic-spin 90s linear infinite;
+}
+
+.bc-backdrop__grid {
+  background-image:
+    linear-gradient(to right, rgba(223, 233, 245, .05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(223, 233, 245, .05) 1px, transparent 1px);
+  background-size: 78px 78px;
+  opacity: .35;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 42%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(70% 60% at 50% 42%, #000 0%, transparent 78%);
+  animation: bc-grid-slide 26s linear infinite;
+}
+
+.bc-backdrop__lines {
+  background: repeating-linear-gradient(to bottom,
+    rgba(238, 244, 255, .035) 0 1px,
+    transparent 1px 4px);
+  opacity: .55;
+  animation: bc-scan 9s linear infinite;
+}
+
+.bc-backdrop__noise {
+  background-image: var(--bc-noise);
+  background-size: 200px 200px;
+  opacity: .05;
+  mix-blend-mode: overlay;
+  animation: bc-grain 1.1s steps(4, end) infinite;
+}
+
+.bc-backdrop__vignette {
+  background: radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(2, 4, 9, .55) 88%, rgba(2, 4, 9, .82) 100%);
+}
+
+@keyframes bc-mesh-drift {
+  0%   { transform: translate3d(-2%, -1.5%, 0) scale(1.04) rotate(0deg); }
+  50%  { transform: translate3d(2.5%, 2%, 0) scale(1.12) rotate(4deg); }
+  100% { transform: translate3d(-1%, 2.5%, 0) scale(1.06) rotate(-3deg); }
+}
+@keyframes bc-conic-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes bc-grid-slide {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 78px 0, 0 78px; }
+}
+@keyframes bc-scan {
+  from { background-position: 0 0; }
+  to   { background-position: 0 44px; }
+}
+@keyframes bc-grain {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(-2%, 1%, 0); }
+  50%  { transform: translate3d(1.5%, -1.5%, 0); }
+  75%  { transform: translate3d(-1%, -1%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Low-power devices: drop the most expensive backdrop layers. */
+html.bc-lite .bc-backdrop__noise,
+html.bc-lite .bc-backdrop__conic { display: none; }
+html.bc-lite .bc-backdrop__mesh { animation-duration: 60s; }
+
+/* ------------------------------------------------------------
+   5. Layout primitives
+   ------------------------------------------------------------ */
+.section {
+  position: relative;
+  padding: var(--pad-section) var(--gutter);
+  isolation: isolate;
+}
+.section > .container { position: relative; z-index: var(--z-content); }
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+}
+.container--narrow { max-width: 880px; }
+
+.stack > * + * { margin-top: 1.1rem; }
+
+/* ------------------------------------------------------------
+   6. Reveal system (observer lives in core.js)
+   ------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(38px);
+  transition:
+    opacity .8s var(--e-out),
+    transform .8s var(--e-out),
+    filter .8s var(--e-out);
+  filter: blur(6px);
+  will-change: opacity, transform;
+}
+.reveal--up    { transform: translateY(38px); }
+.reveal--left  { transform: translateX(-52px); }
+.reveal--right { transform: translateX(52px); }
+.reveal--zoom  { transform: scale(.88); }
+.reveal--flip  { transform: perspective(900px) rotateX(14deg) translateY(30px); }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  will-change: auto;
+}
+
+/* ------------------------------------------------------------
+   7. Text primitives
+   ------------------------------------------------------------ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .75em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin: 0 0 1rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  border-radius: var(--r-pill);
+  background: var(--grad-full);
+  box-shadow: 0 0 12px rgba(34, 230, 255, .55);
+  flex: 0 0 auto;
+}
+.eyebrow--right::after {
+  content: "";
+  width: 34px;
+  height: 2px;
+  border-radius: var(--r-pill);
+  background: var(--grad-full);
+  opacity: .5;
+  flex: 0 0 auto;
+}
+
+.gradient-text {
+  background-image: var(--grad-text);
+  background-size: 260% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: bc-text-pan 11s linear infinite;
+}
+@keyframes bc-text-pan {
+  from { background-position: 0% 50%; }
+  to   { background-position: 260% 50%; }
+}
+
+.text-dim  { color: var(--text-dim); }
+.text-mute { color: var(--text-mute); }
+.mono      { font-family: var(--font-mono); }
+.display   { font-family: var(--font-display); letter-spacing: .01em; text-transform: uppercase; }
+
+/* ------------------------------------------------------------
+   8. Buttons
+   ------------------------------------------------------------ */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6em;
+  padding: .9em 1.75em;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background-image: var(--grad-evolved);
+  color: var(--void-900);
+  font-weight: 800;
+  font-size: .95rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: var(--glow-cyan);
+  transition:
+    transform var(--t-fast) var(--e-spring),
+    box-shadow var(--t-med) var(--e-out),
+    filter var(--t-fast) var(--e-out);
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: 0;
+  width: 45%;
+  height: 220%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: translateX(-180%) skewX(-18deg);
+  transition: transform .8s var(--e-out);
+}
+.btn:hover, .btn:focus-visible { transform: translateY(-3px); filter: brightness(1.06); }
+.btn:hover::after, .btn:focus-visible::after { transform: translateX(320%) skewX(-18deg); }
+.btn:active { transform: translateY(-1px) scale(.985); }
+
+.btn--ghost {
+  background-image: none;
+  background-color: var(--surface);
+  color: var(--text);
+  border-color: var(--stroke);
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.btn--ghost:hover, .btn--ghost:focus-visible {
+  border-color: var(--stroke-glow);
+  box-shadow: var(--glow-cyan);
+  background-color: var(--surface-2);
+}
+.btn--ghost::after { background: linear-gradient(90deg, transparent, rgba(34, 230, 255, .35), transparent); }
+
+.btn--warm { background-image: var(--grad-primal); box-shadow: var(--glow-amber); }
+.btn--sm { padding: .65em 1.2em; font-size: .8rem; }
+
+/* ------------------------------------------------------------
+   9. Glass surface
+   ------------------------------------------------------------ */
+.card-glass {
+  position: relative;
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(180deg, var(--surface-2), var(--surface));
+  backdrop-filter: blur(16px) saturate(135%);
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition:
+    transform var(--t-med) var(--e-out),
+    box-shadow var(--t-med) var(--e-out);
+}
+.card-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad-full);
+  opacity: .5;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  transition: opacity var(--t-med) var(--e-out);
+}
+.card-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 12% -10%, rgba(255, 255, 255, .10), transparent 55%);
+}
+.card-glass:hover { box-shadow: var(--shadow-lg), var(--glow-cyan); }
+.card-glass:hover::before { opacity: .95; }
+
+.divider-glow {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--stroke-glow), transparent);
+}
+
+/* ------------------------------------------------------------
+   10. Scroll progress bar (built by core.js)
+   ------------------------------------------------------------ */
+#bc-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: var(--z-progress);
+  pointer-events: none;
+  background: rgba(255, 255, 255, .05);
+}
+.bc-progress__bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background-image: var(--grad-full);
+  box-shadow: 0 0 18px rgba(34, 230, 255, .55);
+}
+.bc-progress__dot {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--scroll-progress) * 100%);
+  width: 9px; height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: var(--r-pill);
+  background: var(--chrome-200);
+  box-shadow:
+    0 0 10px var(--cyan-400),
+    0 0 22px rgba(34, 230, 255, .8),
+    0 0 40px rgba(139, 92, 255, .55);
+  opacity: 0;
+  transition: opacity var(--t-med) var(--e-out);
+}
+#bc-progress.is-active .bc-progress__dot { opacity: 1; }
+
+/* ------------------------------------------------------------
+   11. Custom cursor (built by core.js, desktop + motion only)
+   ------------------------------------------------------------ */
+#bc-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity .3s var(--e-out);
+}
+#bc-cursor.is-awake { opacity: 1; }
+
+.bc-cursor__dot,
+.bc-cursor__ring {
+  position: absolute;
+  top: 0; left: 0;
+  border-radius: var(--r-pill);
+  will-change: transform;
+}
+.bc-cursor__dot {
+  width: 7px; height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background: var(--chrome-200);
+}
+.bc-cursor__ring {
+  width: 40px; height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1.5px solid rgba(223, 233, 245, .85);
+  display: grid;
+  place-items: center;
+  transition:
+    width .35s var(--e-spring),
+    height .35s var(--e-spring),
+    margin .35s var(--e-spring),
+    border-color .35s var(--e-out),
+    background-color .35s var(--e-out);
+}
+#bc-cursor.is-hot .bc-cursor__ring {
+  width: 84px; height: 84px;
+  margin: -42px 0 0 -42px;
+  border-color: rgba(223, 233, 245, 1);
+  background: rgba(223, 233, 245, .10);
+}
+.bc-cursor__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--chrome-200);
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .25s var(--e-out), transform .25s var(--e-spring);
+}
+#bc-cursor.is-hot .bc-cursor__label { opacity: 1; transform: scale(1); }
+#bc-cursor.is-down .bc-cursor__ring {
+  width: 30px; height: 30px;
+  margin: -15px 0 0 -15px;
+  border-color: var(--accent);
+}
+
+html.bc-cursor-on,
+html.bc-cursor-on a,
+html.bc-cursor-on button,
+html.bc-cursor-on [data-cursor] { cursor: none; }
+html.bc-cursor-on input,
+html.bc-cursor-on textarea,
+html.bc-cursor-on select { cursor: auto; }
+
+/* ------------------------------------------------------------
+   12. Shared marquee utility
+   Markup: <div class="marquee"><div class="marquee__track">…</div>
+                                <div class="marquee__track" aria-hidden="true">…</div></div>
+   Both tracks hold identical content so the loop is seamless.
+   ------------------------------------------------------------ */
+.marquee {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee__track {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--marquee-gap, 2.5rem);
+  padding-right: var(--marquee-gap, 2.5rem);
+  min-width: 100%;
+  white-space: nowrap;
+  will-change: transform;
+  animation: bc-marquee var(--marquee-dur, 30s) linear infinite;
+}
+.marquee--reverse .marquee__track { animation-direction: reverse; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+@keyframes bc-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-100%, 0, 0); }
+}
+
+/* ------------------------------------------------------------
+   13. Small helpers
+   ------------------------------------------------------------ */
+.glow-cyan  { box-shadow: var(--glow-cyan); }
+.glow-amber { box-shadow: var(--glow-amber); }
+.no-select  { -webkit-user-select: none; user-select: none; }
+.full-vh    { min-height: calc(var(--vh) * 100); }
+
+/* ------------------------------------------------------------
+   14. Reduced motion — hard killswitch
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: .001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--flip, .reveal--up {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  #bc-cursor { display: none !important; }
+  .bc-backdrop__noise,
+  .bc-backdrop__conic,
+  .bc-backdrop__lines { display: none; }
+  .marquee__track { animation: none !important; }
+}
+
+/* Same killswitch, driven by the JS flag (live media-query changes). */
+html.bc-reduced #bc-cursor { display: none !important; }
+html.bc-reduced .bc-backdrop__noise,
+html.bc-reduced .bc-backdrop__conic { display: none; }
+html.bc-reduced .reveal { opacity: 1; transform: none; filter: none; }
+
+/* ------------------------------------------------------------
+   15. Narrow screens (down to 360px)
+   ------------------------------------------------------------ */
+@media (max-width: 560px) {
+  .btn { padding: .8em 1.35em; font-size: .85rem; }
+  .eyebrow { letter-spacing: .24em; }
+  .eyebrow::before { width: 22px; }
+  #bc-progress { height: 2px; }
+  .card-glass { border-radius: var(--r-md); }
+}

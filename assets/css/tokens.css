@@ -1,0 +1,76 @@
+/* ============================================================
+   BERKAY CABBAR — EVOLUTION :: DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* --- Primal / jungle side --- */
+  --jungle-900: #04120c;
+  --jungle-800: #071c13;
+  --jungle-700: #0b291c;
+  --moss-500:   #2f7d4f;
+  --moss-400:   #3fa363;
+  --leaf-300:   #6fe09a;
+  --bark-700:   #2a1c12;
+  --fur-600:    #3b2a1e;
+  --amber-500:  #ffb02e;
+  --amber-400:  #ffc861;
+
+  /* --- Evolved / neon side --- */
+  --void-900:   #04060d;
+  --void-800:   #080c18;
+  --void-700:   #0d1424;
+  --cyan-500:   #22e6ff;
+  --cyan-400:   #6ff2ff;
+  --violet-500: #8b5cff;
+  --magenta-500:#ff3ea5;
+  --chrome-200: #dfe9f5;
+
+  /* --- Semantic --- */
+  --bg:          var(--void-900);
+  --bg-soft:     var(--void-800);
+  --surface:     rgba(255,255,255,.045);
+  --surface-2:   rgba(255,255,255,.075);
+  --stroke:      rgba(255,255,255,.12);
+  --stroke-glow: rgba(34,230,255,.45);
+  --text:        #eef4ff;
+  --text-dim:    rgba(238,244,255,.66);
+  --text-mute:   rgba(238,244,255,.42);
+  --accent:      var(--cyan-500);
+  --accent-warm: var(--amber-500);
+
+  /* --- Gradients --- */
+  --grad-primal:  linear-gradient(135deg, var(--amber-500), var(--moss-400));
+  --grad-evolved: linear-gradient(135deg, var(--cyan-500), var(--violet-500));
+  --grad-full:    linear-gradient(100deg, var(--amber-500) 0%, var(--leaf-300) 32%, var(--cyan-500) 66%, var(--violet-500) 100%);
+  --grad-text:    linear-gradient(100deg, var(--amber-400), var(--leaf-300) 38%, var(--cyan-400) 72%, var(--violet-500));
+
+  /* --- Type --- */
+  --font-display: "Impact", "Haettenschweiler", "Arial Narrow Bold", "Anton", system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --fs-hero:  clamp(3rem, 13vw, 11rem);
+  --fs-h2:    clamp(2rem, 6.2vw, 4.6rem);
+  --fs-h3:    clamp(1.25rem, 2.6vw, 2rem);
+  --fs-body:  clamp(1rem, 1.15vw, 1.15rem);
+  --fs-small: .82rem;
+
+  /* --- Space / shape --- */
+  --pad-section: clamp(4.5rem, 11vh, 9rem);
+  --gutter: clamp(1.15rem, 5vw, 5rem);
+  --maxw: 1280px;
+  --r-sm: 10px; --r-md: 18px; --r-lg: 28px; --r-pill: 999px;
+
+  /* --- Motion --- */
+  --e-out: cubic-bezier(.22,1,.36,1);
+  --e-in-out: cubic-bezier(.76,0,.24,1);
+  --e-spring: cubic-bezier(.34,1.56,.64,1);
+  --t-fast: .22s; --t-med: .5s; --t-slow: .9s;
+
+  /* --- Shadows / glow --- */
+  --glow-cyan:  0 0 0 1px rgba(34,230,255,.25), 0 8px 40px rgba(34,230,255,.22);
+  --glow-amber: 0 0 0 1px rgba(255,176,46,.25), 0 8px 40px rgba(255,176,46,.2);
+  --shadow-lg: 0 30px 80px -20px rgba(0,0,0,.75);
+
+  /* --- Z --- */
+  --z-fx: 1; --z-content: 2; --z-nav: 700; --z-progress: 750; --z-modal: 800;
+  --z-cursor: 8000; --z-preloader: 9000;
+}

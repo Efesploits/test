@@ -1,0 +1,634 @@
+/* ============================================================
+   BERKAY CABBAR — EVOLUTION :: QUOTES / SÖZLER
+   Owner: quotes agent. Section id="sozler".
+   Two counter-running marquees (outlined + filled display type),
+   a 3D testimonial carousel and animated aurora dividers.
+   Every class is namespaced with `qt`. Requires tokens.css + base.css.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   0. Section shell + local variables
+   ------------------------------------------------------------ */
+.section--quotes {
+  --qt-ink: var(--cyan-400);
+  --qt-ink-2: var(--violet-500);
+  --qt-gap: clamp(.9rem, 2.2vw, 1.9rem);
+  --qt-slide-w: min(100%, 34rem);
+  --qt-mq-gap: clamp(1.5rem, 4vw, 3.2rem);
+  --qt-mq-size: clamp(2.1rem, 8.4vw, 6.5rem);
+  --qt-aurora-h: clamp(64px, 9vw, 120px);
+  --qt-card-pad: clamp(1.35rem, 3.2vw, 2.6rem);
+
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(var(--pad-section) * 1.05);
+  padding-bottom: calc(var(--pad-section) * 1.05);
+}
+
+/* ------------------------------------------------------------
+   1. Aurora / wave dividers (top + bottom)
+   ------------------------------------------------------------ */
+.qt__aurora {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--qt-aurora-h);
+  z-index: var(--z-fx);
+  pointer-events: none;
+  overflow: hidden;
+}
+.qt__aurora--top { top: 0; }
+.qt__aurora--bottom { bottom: 0; }
+
+.qt__aurora-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: .85;
+}
+.qt__aurora--top .qt__aurora-svg { transform: scaleY(-1); }
+
+.qt-stop-amber  { stop-color: var(--amber-500); }
+.qt-stop-leaf   { stop-color: var(--leaf-300); }
+.qt-stop-cyan   { stop-color: var(--cyan-500); }
+.qt-stop-violet { stop-color: var(--violet-500); }
+
+.qt__wave {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  will-change: transform;
+  animation: qt-wave-x 14s linear infinite;
+}
+.qt__wave--1 { opacity: .85; animation-duration: 16s; }
+.qt__wave--2 { opacity: .5;  animation-duration: 11s; animation-direction: reverse; stroke-width: 1.4; }
+.qt__wave--3 { opacity: .3;  animation-duration: 23s; stroke-width: 1.1; }
+
+@keyframes qt-wave-x {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-480px, 0, 0); }
+}
+
+/* soft gradient sweep behind the waves */
+.qt__aurora-glow {
+  position: absolute;
+  inset: -40% -10%;
+  display: block;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 176, 46, .16) 14%,
+    rgba(111, 224, 154, .18) 34%,
+    rgba(34, 230, 255, .22) 58%,
+    rgba(139, 92, 255, .18) 78%,
+    transparent 100%);
+  background-size: 220% 100%;
+  filter: blur(22px);
+  opacity: .75;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  animation: qt-sweep 18s linear infinite;
+}
+.qt__aurora--bottom .qt__aurora-glow { animation-direction: reverse; animation-duration: 24s; }
+
+@supports (background: color-mix(in srgb, red 10%, transparent)) {
+  .qt__aurora-glow {
+    background: linear-gradient(90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--amber-500) 16%, transparent) 14%,
+      color-mix(in srgb, var(--leaf-300) 18%, transparent) 34%,
+      color-mix(in srgb, var(--cyan-500) 22%, transparent) 58%,
+      color-mix(in srgb, var(--violet-500) 18%, transparent) 78%,
+      transparent 100%);
+    background-size: 220% 100%;
+  }
+}
+
+@keyframes qt-sweep {
+  from { background-position: 0% 50%; }
+  to   { background-position: 220% 50%; }
+}
+
+/* Offscreen / hidden tab: freeze the decorative loops. */
+.section--quotes.qt-is-idle .qt__wave,
+.section--quotes.qt-is-idle .qt__aurora-glow { animation-play-state: paused; }
+
+/* ------------------------------------------------------------
+   2. Section atmosphere
+   ------------------------------------------------------------ */
+.qt__fx {
+  position: absolute;
+  inset: -10% -6%;
+  z-index: var(--z-fx);
+  pointer-events: none;
+  overflow: hidden;
+}
+.qt__fx-layer { position: absolute; inset: 0; display: block; }
+
+.qt__fx-bloom {
+  background:
+    radial-gradient(44% 40% at 82% 18%, rgba(34, 230, 255, .20), transparent 68%),
+    radial-gradient(40% 38% at 14% 34%, rgba(139, 92, 255, .20), transparent 70%),
+    radial-gradient(38% 34% at 52% 92%, rgba(255, 62, 165, .12), transparent 70%),
+    radial-gradient(30% 28% at 30% 6%, rgba(255, 176, 46, .10), transparent 72%);
+}
+@supports (background: color-mix(in srgb, red 10%, transparent)) {
+  .qt__fx-bloom {
+    background:
+      radial-gradient(44% 40% at 82% 18%, color-mix(in srgb, var(--cyan-500) 20%, transparent), transparent 68%),
+      radial-gradient(40% 38% at 14% 34%, color-mix(in srgb, var(--violet-500) 20%, transparent), transparent 70%),
+      radial-gradient(38% 34% at 52% 92%, color-mix(in srgb, var(--magenta-500) 12%, transparent), transparent 70%),
+      radial-gradient(30% 28% at 30% 6%, color-mix(in srgb, var(--amber-500) 10%, transparent), transparent 72%);
+  }
+}
+
+.qt__fx-grid {
+  background-image:
+    linear-gradient(to right, rgba(223, 233, 245, .05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(223, 233, 245, .05) 1px, transparent 1px);
+  background-size: 104px 104px;
+  opacity: .3;
+  -webkit-mask-image: radial-gradient(62% 58% at 50% 50%, #000 0%, transparent 80%);
+  mask-image: radial-gradient(62% 58% at 50% 50%, #000 0%, transparent 80%);
+}
+
+.qt__fx-veil {
+  background: linear-gradient(180deg,
+    rgba(4, 6, 13, .72) 0%, transparent 18%,
+    transparent 82%, rgba(4, 6, 13, .72) 100%);
+}
+
+/* ------------------------------------------------------------
+   3. Header
+   ------------------------------------------------------------ */
+.qt__head {
+  position: relative;
+  z-index: var(--z-content);
+  max-width: 66ch;
+}
+.qt__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  letter-spacing: .012em;
+  text-transform: uppercase;
+  margin-bottom: 1.05rem;
+}
+.qt__lede {
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  max-width: 58ch;
+}
+
+/* ------------------------------------------------------------
+   4. Marquees — full bleed, opposite directions
+   ------------------------------------------------------------ */
+.qt__marquees {
+  position: relative;
+  z-index: var(--z-content);
+  margin: clamp(2.4rem, 6vh, 4.2rem) calc(var(--gutter) * -1) clamp(2.4rem, 6vh, 4.2rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(.2rem, 1vw, .8rem);
+}
+
+.qt__marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: clamp(.1rem, .6vw, .45rem);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.qt__marquee--alt { opacity: .92; }
+
+.qt__mq-row {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.qt__mq-track {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--qt-mq-gap);
+  padding-right: var(--qt-mq-gap);
+  white-space: nowrap;
+}
+
+/* No-JS / no-rAF fallback: pure CSS loop (JS removes it via .qt-is-js). */
+.qt__marquee:not(.qt-is-js) .qt__mq-row {
+  animation: qt-mq-css 32s linear infinite;
+}
+.qt__marquee--alt:not(.qt-is-js) .qt__mq-row {
+  animation-duration: 42s;
+  animation-direction: reverse;
+}
+@keyframes qt-mq-css {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.qt__mq-item {
+  font-family: var(--font-display);
+  font-size: var(--qt-mq-size);
+  line-height: 1.06;
+  letter-spacing: .012em;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* filled — gradient ink */
+.qt__mq-item--fill {
+  color: var(--chrome-200);
+  background-image: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .qt__mq-item--fill {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* outlined — hollow display type */
+.qt__mq-item--out {
+  color: var(--text-mute);
+}
+@supports (-webkit-text-stroke: 1px red) {
+  .qt__mq-item--out {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: clamp(1px, .13vw, 2px) var(--qt-ink);
+  }
+  .qt__marquee--alt .qt__mq-item--out { -webkit-text-stroke-color: var(--amber-400); }
+}
+
+.qt__mq-sep {
+  flex: 0 0 auto;
+  width: clamp(9px, 1.1vw, 15px);
+  height: clamp(9px, 1.1vw, 15px);
+  border-radius: 2px;
+  background-image: var(--grad-evolved);
+  transform: rotate(45deg);
+  box-shadow: var(--glow-cyan);
+  opacity: .85;
+}
+.qt__marquee--alt .qt__mq-sep {
+  background-image: var(--grad-primal);
+  box-shadow: var(--glow-amber);
+}
+
+/* Static (reduced motion): wrap into a centred block instead of scrolling. */
+.qt__marquee.qt-is-static { -webkit-mask-image: none; mask-image: none; }
+.qt__marquee.qt-is-static .qt__mq-row {
+  width: auto;
+  transform: none !important;
+  animation: none !important;
+}
+.qt__marquee.qt-is-static .qt__mq-track {
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-right: 0;
+  white-space: normal;
+  row-gap: .4em;
+}
+.qt__marquee.qt-is-static .qt__mq-track--clone { display: none; }
+
+/* ------------------------------------------------------------
+   5. Carousel
+   ------------------------------------------------------------ */
+.qt__carousel {
+  position: relative;
+  z-index: var(--z-content);
+  margin-top: clamp(1rem, 3vh, 2rem);
+}
+
+.qt__viewport {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(1rem, 2.4vw, 2.2rem);
+  border-radius: var(--r-lg);
+  perspective: 1400px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  cursor: grab;
+  touch-action: pan-y;
+}
+.qt__viewport:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.qt__carousel.qt-is-dragging .qt__viewport { cursor: grabbing; }
+.qt__carousel.qt-is-dragging,
+.qt__carousel.qt-is-dragging * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.qt__track {
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  gap: var(--qt-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform .78s var(--e-out);
+}
+.qt__carousel.qt-is-dragging .qt__track { transition: none; }
+
+.qt__slide {
+  --qt-off: 0;
+  flex: 0 0 var(--qt-slide-w);
+  display: flex;
+  transform-origin: 50% 50%;
+  transform: rotateY(calc(var(--qt-off, 0) * -11deg)) scale(.84) translateZ(-60px);
+  opacity: .32;
+  filter: blur(2px);
+  transition:
+    transform .78s var(--e-out),
+    opacity .78s var(--e-out),
+    filter .78s var(--e-out);
+  will-change: transform, opacity;
+}
+.qt__slide.qt-is-active {
+  transform: rotateY(0deg) scale(1) translateZ(0);
+  opacity: 1;
+  filter: none;
+}
+.qt__slide.qt-is-near { opacity: .5; filter: blur(1.2px); }
+
+/* ------------------------------------------------------------
+   6. Quote card
+   ------------------------------------------------------------ */
+.qt__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.2vw, 1.6rem);
+  width: 100%;
+  min-height: clamp(17rem, 34vw, 21rem);
+  padding: var(--qt-card-pad);
+  padding-top: calc(var(--qt-card-pad) + clamp(.4rem, 1.4vw, 1.2rem));
+}
+.qt__slide.qt-is-active .qt__card {
+  box-shadow: var(--shadow-lg), var(--glow-cyan);
+}
+.qt__slide.qt-is-active .qt__card::before { opacity: .95; }
+
+.qt__mark {
+  position: absolute;
+  top: clamp(-1.6rem, -2.4vw, -.6rem);
+  right: clamp(.6rem, 2vw, 1.6rem);
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 17vw, 13rem);
+  line-height: 1;
+  color: transparent;
+  background-image: var(--grad-evolved);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: .22;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.qt__card-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .10) 50%, transparent 62%);
+  background-size: 260% 100%;
+  background-position: 200% 0;
+  opacity: 0;
+}
+.section--quotes:not(.qt-is-idle) .qt__slide.qt-is-active .qt__card-sheen {
+  opacity: 1;
+  animation: qt-sheen 6.5s var(--e-in-out) infinite;
+}
+@keyframes qt-sheen {
+  0%   { background-position: 200% 0; }
+  55%  { background-position: -60% 0; }
+  100% { background-position: -60% 0; }
+}
+
+.qt__blockquote { position: relative; z-index: 1; margin: 0; }
+.qt__text {
+  font-size: clamp(1.05rem, 2.15vw, 1.5rem);
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+.qt__attr {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  margin-top: auto;
+  padding-top: clamp(.8rem, 1.6vw, 1.2rem);
+  border-top: 1px solid var(--stroke);
+}
+
+.qt__badge {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 5vw, 46px);
+  height: clamp(38px, 5vw, 46px);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--stroke);
+  background: var(--surface-2);
+  color: var(--qt-ink);
+}
+.qt__badge svg { width: 55%; height: 55%; }
+.qt__slide.qt-is-active .qt__badge {
+  border-color: var(--stroke-glow);
+  box-shadow: var(--glow-cyan);
+}
+
+.qt__attr-lines { display: flex; flex-direction: column; min-width: 0; }
+.qt__source {
+  font-weight: 800;
+  font-size: clamp(.95rem, 1.5vw, 1.08rem);
+  letter-spacing: .01em;
+  color: var(--text);
+}
+.qt__role {
+  font-size: var(--fs-small);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+/* ------------------------------------------------------------
+   7. Controls
+   ------------------------------------------------------------ */
+.qt__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.75rem, 2.4vw, 1.6rem);
+  margin-top: clamp(1.2rem, 3vh, 2rem);
+}
+
+.qt__nav {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 5.4vw, 54px);
+  height: clamp(44px, 5.4vw, 54px);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--stroke);
+  background: var(--surface);
+  color: var(--text);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform var(--t-fast) var(--e-spring),
+    border-color var(--t-fast) var(--e-out),
+    box-shadow var(--t-med) var(--e-out),
+    background-color var(--t-fast) var(--e-out),
+    color var(--t-fast) var(--e-out);
+}
+.qt__nav svg { width: 46%; height: 46%; }
+.qt__nav:hover,
+.qt__nav:focus-visible {
+  border-color: var(--stroke-glow);
+  background: var(--surface-2);
+  color: var(--qt-ink);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+.qt__nav:active { transform: translateY(0) scale(.94); }
+
+.qt__dots {
+  display: flex;
+  align-items: center;
+  gap: clamp(.35rem, 1.2vw, .6rem);
+}
+.qt__dot {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-pill);
+  padding: 0;
+}
+.qt__dot > i {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--r-pill);
+  background: var(--text-mute);
+  transition:
+    width var(--t-med) var(--e-spring),
+    background-color var(--t-med) var(--e-out),
+    box-shadow var(--t-med) var(--e-out);
+}
+.qt__dot:hover > i,
+.qt__dot:focus-visible > i { background: var(--text-dim); }
+.qt__dot[aria-current="true"] > i {
+  width: 30px;
+  background-image: var(--grad-evolved);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ------------------------------------------------------------
+   8. Narrow screens (down to 360px)
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .section--quotes { --qt-slide-w: min(100%, 30rem); }
+}
+
+@media (max-width: 700px) {
+  .section--quotes { --qt-slide-w: 100%; }
+  .qt__slide { filter: none; transform: rotateY(calc(var(--qt-off, 0) * -8deg)) scale(.88); }
+  .qt__slide.qt-is-near { filter: none; }
+  .qt__viewport {
+    -webkit-mask-image: none;
+    mask-image: none;
+    padding-block: clamp(.6rem, 2vw, 1.2rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .section--quotes {
+    --qt-mq-gap: 1.2rem;
+    --qt-card-pad: 1.25rem;
+  }
+  .qt__card { min-height: 16rem; }
+  .qt__mark { font-size: 6.5rem; top: -1.1rem; }
+  .qt__controls { gap: .6rem; }
+  .qt__role { letter-spacing: .08em; }
+}
+
+@media (max-width: 380px) {
+  .section--quotes { --qt-mq-size: 2rem; }
+  .qt__text { font-size: 1rem; }
+  .qt__nav { width: 42px; height: 42px; }
+  .qt__dot { width: 26px; }
+  .qt__dot[aria-current="true"] > i { width: 24px; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .qt__card:hover { transform: translateY(-2px); }
+}
+
+/* ------------------------------------------------------------
+   9. Reduced motion — no loops, no 3D, everything readable
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .qt__wave,
+  .qt__aurora-glow,
+  .qt__card-sheen { animation: none !important; }
+  .qt__card-sheen { opacity: 0 !important; }
+
+  .qt__mq-row {
+    width: auto !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .qt__mq-track {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+    white-space: normal;
+    row-gap: .4em;
+  }
+  .qt__mq-track--clone { display: none !important; }
+  .qt__marquee { -webkit-mask-image: none; mask-image: none; }
+
+  .qt__slide,
+  .qt__slide.qt-is-active {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1;
+  }
+  .qt__track { transition: none !important; }
+}
+
+/* Same killswitch driven by the live JS flag. */
+html.bc-reduced .qt__wave,
+html.bc-reduced .qt__aurora-glow,
+html.bc-reduced .qt__card-sheen { animation: none !important; }
+html.bc-reduced .qt__card-sheen { opacity: 0 !important; }
+html.bc-reduced .qt__slide,
+html.bc-reduced .qt__slide.qt-is-active {
+  transform: none !important;
+  filter: none !important;
+  opacity: 1;
+}
+
+/* Low-power devices: drop the most expensive blurs. */
+html.bc-lite .qt__slide { filter: none; }
+html.bc-lite .qt__aurora-glow { filter: blur(12px); }
