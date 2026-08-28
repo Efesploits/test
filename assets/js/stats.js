@@ -272,7 +272,7 @@
         var p = clamp((t - b.delay) / b.dur, 0, 1);
         if (t >= b.delay && !armed[j]) {
           armed[j] = true;
-          b.el.classList.add('is-armed');
+          if (b.el) b.el.classList.add('is-armed');
         }
         paintBar(b, b.value * easeOutCubic(p));
         if (p < 1) alive = true;
