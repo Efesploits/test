@@ -565,7 +565,7 @@
   align-items: center;
   justify-content: center;
   cursor: ew-resize;
-  touch-action: none;
+  touch-action: pan-y;          /* horizontal drag is ours, vertical scroll is the page's */
   z-index: 3;
   transition: left var(--t-fast) var(--e-out);
 }
@@ -618,6 +618,9 @@
 .st-vs__divider:focus { outline: none; }
 .st-vs__divider:focus-visible .st-vs__grip {
   transform: scale(1.12);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  animation: none !important;   /* the idle pulse must never eat the focus ring */
   box-shadow:
     0 0 0 2px var(--accent),
     0 0 0 6px color-mix(in srgb, var(--accent) 25%, transparent),
@@ -656,7 +659,6 @@
   .section--stats { --st-bar-h: 12px; }
   .st-counters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .st-counter:last-child { grid-column: 1 / -1; }
-  .st-counter--long .st-counter__value { font-size: clamp(1.05rem, 5.2vw, 1.6rem); }
   .st-counter__note { display: none; }
   .st-bar__meta { flex-wrap: wrap; row-gap: .25rem; }
   .st-bar__pct { margin-left: auto; }

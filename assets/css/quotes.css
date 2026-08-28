@@ -283,19 +283,28 @@
 }
 
 /* Static (reduced motion): wrap into a centred block instead of scrolling. */
-.qt__marquee.qt-is-static { -webkit-mask-image: none; mask-image: none; }
+.qt__marquee.qt-is-static {
+  -webkit-mask-image: none;
+  mask-image: none;
+  padding-inline: var(--gutter);
+}
 .qt__marquee.qt-is-static .qt__mq-row {
   width: auto;
   transform: none !important;
   animation: none !important;
 }
 .qt__marquee.qt-is-static .qt__mq-track {
+  flex: 1 1 auto;
+  min-width: 0;
   flex-wrap: wrap;
   justify-content: center;
+  gap: .3em .8em;
   padding-right: 0;
   white-space: normal;
-  row-gap: .4em;
 }
+.qt__marquee.qt-is-static .qt__mq-item { font-size: clamp(1.35rem, 5.2vw, 3.1rem); }
+.qt__marquee.qt-is-static .qt__mq-sep { width: 9px; height: 9px; }
+.qt__marquee.qt-is-static .qt__mq-track > .qt__mq-sep:last-child { display: none; }
 .qt__marquee.qt-is-static .qt__mq-track--clone { display: none; }
 
 /* ------------------------------------------------------------
@@ -599,20 +608,28 @@
     animation: none !important;
   }
   .qt__mq-track {
+    flex: 1 1 auto;
+    min-width: 0;
     flex-wrap: wrap;
     justify-content: center;
+    gap: .3em .8em;
     padding-right: 0;
     white-space: normal;
-    row-gap: .4em;
   }
+  .qt__mq-item { font-size: clamp(1.35rem, 5.2vw, 3.1rem); }
+  .qt__mq-sep { width: 9px; height: 9px; }
+  .qt__mq-track > .qt__mq-sep:last-child { display: none; }
   .qt__mq-track--clone { display: none !important; }
-  .qt__marquee { -webkit-mask-image: none; mask-image: none; }
+  .qt__marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+    padding-inline: var(--gutter);
+  }
 
   .qt__slide,
   .qt__slide.qt-is-active {
     transform: none !important;
     filter: none !important;
-    opacity: 1;
   }
   .qt__track { transition: none !important; }
 }
@@ -626,7 +643,6 @@ html.bc-reduced .qt__slide,
 html.bc-reduced .qt__slide.qt-is-active {
   transform: none !important;
   filter: none !important;
-  opacity: 1;
 }
 
 /* Low-power devices: drop the most expensive blurs. */
